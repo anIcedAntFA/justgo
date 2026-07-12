@@ -1,0 +1,20 @@
+# Git hooks — https://lefthook.dev · enable with `lefthook install` (via `just setup`).
+# Formatters auto-fix and re-stage. Hooks stay fast: NO `go test` here (that runs in
+# `just check` / CI). See ADR-0003 for the node-free toolchain.
+
+pre-commit:
+  parallel: true
+  commands:
+    gofumpt:
+      glob: "*.go"
+      run: gofumpt -w {staged_files}
+      stage_fixed: true
+    golangci-lint:
+      glob: "*.go"
+      run: golangci-lint run ./...
+    dprint:
+      glob: "*.{md,json,jsonc,toml,yaml,yml}"
+      run: dprint fmt {staged_files}
+      stage_fixed: true
+    gitleaks:
+      run: gitleaks git --staged --no-banner --redact

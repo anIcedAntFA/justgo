@@ -1,0 +1,19 @@
+# Private reference material (source drafts from claude.ai) — kept local only
+.docs
+
+# Agent / skill tooling — managed locally, not tracked (matches dotfiles convention)
+.claude/
+.agents/
+.gemini/
+**/.claude/settings.local.json
+skills-lock.json
+
+# Go build & test artifacts
+/bin/
+*.exe
+*.test
+*.out
+coverage.*
+
+# Local go.work overrides
+go.work.sum

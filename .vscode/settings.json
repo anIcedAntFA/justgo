@@ -1,0 +1,41 @@
+{
+  // === Go-specific ===
+
+  // Format on save (non-negotiable in Go)
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "golang.go",
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    }
+  },
+
+  // Use gopls (should be default, but be explicit)
+  "go.useLanguageServer": true,
+
+  // Use golangci-lint instead of default linter
+  "go.lintTool": "golangci-lint",
+  "go.lintOnSave": "workspace",
+
+  // Test flags
+  "go.testFlags": ["-v", "-race", "-count=1"],
+
+  // Show test coverage highlights in editor
+  "go.coverOnSave": true,
+  "go.coverageDecorator": {
+    "type": "highlight",
+    "coveredHighlightColor": "rgba(64,128,64,0.2)",
+    "uncoveredHighlightColor": "rgba(128,64,64,0.2)"
+  },
+
+  // gopls settings
+  "gopls": {
+    "formatting.gofumpt": true, // stricter formatting than gofmt
+    "ui.semanticTokens": true, // better syntax highlighting
+    "ui.diagnostic.analyses": {
+      "unusedwrite": true, // detect unused writes
+      "useany": true, // suggest 'any' over 'interface{}'
+      "nilness": true // nil pointer analysis
+    }
+  }
+}

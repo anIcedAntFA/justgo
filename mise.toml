@@ -1,0 +1,10 @@
+# Tool versions for this repo — https://mise.jdx.dev
+# Install everything with `mise install` (or `just setup`). No Node required.
+[tools]
+go = "1.26.3"
+gofumpt = "latest" # stricter gofmt (see .vscode + ADR-0003 context)
+"golangci-lint" = "latest" # Go linter, config in .golangci.yml
+gitleaks = "latest" # secret scanning
+dprint = "latest" # formats markdown / json / toml (node-free, ADR-0003)
+just = "latest" # task runner (justfile)
+lefthook = "latest" # git hooks manager (lefthook.yml)

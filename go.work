@@ -1,0 +1,7 @@
+go 1.26.3
+
+// Root module holds all Chapter code (examples + exercises).
+use .
+
+// Each Milestone project is its own module — add it here when you build it, e.g.:
+// use ./content/part-1-foundation/gitm
