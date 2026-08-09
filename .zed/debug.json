@@ -1,0 +1,18 @@
+// Zed debug configurations (Delve adapter). Requires `dlv` on PATH.
+// Open the debugger with the command palette: `debugger: start`.
+[
+  {
+    "label": "Go: debug current file's package",
+    "adapter": "Delve",
+    "request": "launch",
+    "mode": "debug",
+    "program": "$ZED_FILE"
+  },
+  {
+    "label": "Go: debug tests in current package",
+    "adapter": "Delve",
+    "request": "launch",
+    "mode": "test",
+    "program": "$ZED_DIRNAME"
+  }
+]

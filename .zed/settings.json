@@ -1,0 +1,54 @@
+// Zed workspace settings for the justgo repo — Go development.
+// Mirrors the .vscode/settings.json Go setup. Requires gopls + dlv on PATH
+// (installed via `just setup` / mise). See ADR-0003 and Chapter 02.
+{
+  // Turn the inlay-hint FEATURE on (Zed defaults it off). The *content*
+  // of Go hints is controlled by gopls "hints" below.
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true
+  },
+
+  "languages": {
+    "Go": {
+      "format_on_save": "on",
+      // Formatters run in order: organize imports (a code action), then let
+      // gopls format the buffer — gopls applies gofumpt because
+      // "gofumpt": true is set in its initialization_options below.
+      "formatter": [
+        { "code_action": "source.organizeImports" },
+        { "language_server": { "name": "gopls" } }
+      ]
+    }
+  },
+
+  "lsp": {
+    "gopls": {
+      "initialization_options": {
+        // Formatting — stricter than gofmt, and group our own imports last.
+        "gofumpt": true,
+        "local": "github.com/anIcedAntFA/justgo",
+
+        // Static analysis (parity with .vscode/settings.json).
+        "staticcheck": true,
+        "analyses": {
+          "unusedwrite": true,
+          "useany": true,
+          "nilness": true
+        },
+
+        // Extra inlay hints (needs the editor-level inlay_hints above enabled).
+        "hints": {
+          "assignVariableTypes": true,
+          "compositeLiteralFields": true,
+          "constantValues": true,
+          "functionTypeParameters": true,
+          "parameterNames": true,
+          "rangeVariableTypes": true
+        }
+      }
+    }
+  }
+}

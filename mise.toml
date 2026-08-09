@@ -8,3 +8,4 @@ gitleaks = "latest" # secret scanning
 dprint = "latest" # formats markdown / json / toml (node-free, ADR-0003)
 just = "latest" # task runner (justfile)
 lefthook = "latest" # git hooks manager (lefthook.yml)
+"go:github.com/go-delve/delve/cmd/dlv" = "latest" # debugger (VS Code / Zed via DAP)

@@ -31,7 +31,9 @@
   // gopls settings
   "gopls": {
     "formatting.gofumpt": true, // stricter formatting than gofmt
+    "formatting.local": "github.com/anIcedAntFA/justgo", // group our imports last
     "ui.semanticTokens": true, // better syntax highlighting
+    "ui.diagnostic.staticcheck": true, // advanced static analysis in the editor
     "ui.diagnostic.analyses": {
       "unusedwrite": true, // detect unused writes
       "useany": true, // suggest 'any' over 'interface{}'
