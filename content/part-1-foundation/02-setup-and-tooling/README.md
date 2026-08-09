@@ -44,6 +44,17 @@ export PATH=$PATH:/usr/local/go/bin
 go version
 ```
 
+### Option C: mise (recommended for this repo)
+
+[mise](https://mise.jdx.dev) is a polyglot version manager (think `nvm` + `asdf` for every tool). This repo pins Go **and its whole toolchain** in [`mise.toml`](../../../mise.toml), so one command installs everything at the exact versions:
+
+```bash
+mise install        # or: just setup  — installs go, gofumpt, golangci-lint, just, dlv, …
+go version          # → go version go1.26.3 linux/amd64
+```
+
+Why this over `pacman` here: the version is pinned per-repo and reproducible across machines, and the same file also manages `gofumpt`, `golangci-lint`, `just`, `dlv`, and more — no global installs, no version drift. This is how the justgo repo is set up.
+
 ### Environment Variables
 
 Add these to your shell config (`~/.zshrc`, `~/.bashrc`, or wherever you manage env):
@@ -307,7 +318,24 @@ If VS Code isn't your thing:
 
 **Neovim + gopls** — if you're already a Neovim user on Arch. gopls works with any LSP-compatible editor. Setup via `nvim-lspconfig` or `coc.nvim`. Fastest editing experience once configured.
 
-**Zed** — new Rust-based editor gaining traction. Built-in Go support via gopls. Worth watching.
+**Zed** — fast Rust-based editor with native Go support. If you use Zed, this repo ships a working config — see the section below.
+
+### Zed Setup
+
+Zed has Go support built in: tree-sitter highlighting, **gopls** as the language server, and a native **Delve** debug adapter. Install `gopls` and `dlv` yourself — `go install golang.org/x/tools/gopls@latest` (here they come from `mise`, via `just setup`) — and make sure `$HOME/go/bin` is on `PATH`. Zed's docs specifically recommend the `go install` build over a distro/Homebrew package.
+
+Unlike VS Code, **none** of the formatting/analysis behavior is on by default — you configure it. This repo already does, in [`.zed/settings.json`](../../../.zed/settings.json) and [`.zed/debug.json`](../../../.zed/debug.json):
+
+- **Format on save** via a `formatter` array that runs in order: the `source.organizeImports` code action, then gopls (which applies **gofumpt** because `"gofumpt": true` is set). Note: the old `code_actions_on_format` key is gone — the `formatter` array replaces it, and inside it you use the object form `{ "language_server": { "name": "gopls" } }`.
+- **gopls settings** under `lsp.gopls.initialization_options`: `gofumpt`, `local` (import grouping by module path), `staticcheck`, `analyses` (`nilness`, `unusedwrite`, `useany`), and inlay-hint content.
+- **Inlay hints** need the editor-level `"inlay_hints": { "enabled": true }` **and** the gopls `hints` map — both, or nothing shows.
+- **Debugging**: `.zed/debug.json` has Delve configs (debug the package / debug tests); open with the command palette → `debugger: start`.
+
+**golangci-lint** is not native to Zed and gopls doesn't run it — it needs a separate extension plus the `golangci-lint-langserver` binary. This repo skips that: golangci-lint runs via `just check` and CI, and gopls' `staticcheck` covers the common cases in the editor.
+
+> Heads-up: organize-imports-on-save has had reliability bugs in Zed. Ordering the code action **before** gopls in the `formatter` array is the arrangement that works.
+
+Sources: [Zed Go docs](https://zed.dev/docs/languages/go) · [configuring languages](https://zed.dev/docs/configuring-languages) · [gopls settings](https://github.com/golang/tools/blob/master/gopls/doc/settings.md).
 
 ---
 
@@ -434,14 +462,26 @@ Let's verify everything works end-to-end.
 
 ### Create the project
 
+**In this repo**, your first program already lives as a Chapter example — no
+`go mod init` needed, because all Chapter code shares the **root module** via
+`go.work` ([ADR-0002](../../../docs/adr/0002-multi-module-workspace.md)):
+
+```bash
+cd content/part-1-foundation/02-setup-and-tooling/examples/hello
+# main.go + main_test.go are already here — run: go run .
+```
+
+If you'd rather scratch **outside** the repo (a throwaway you won't commit), that
+needs its own module:
+
 ```bash
 mkdir ~/projects/hello-go && cd ~/projects/hello-go
-go mod init github.com/yourname/hello-go
+go mod init example.com/hello-go
 ```
 
 ### Write the code
 
-Create `main.go`:
+`examples/hello/main.go` (already created for you):
 
 ```go
 package main
@@ -582,6 +622,12 @@ With Go modules (since Go 1.11, 2018), you **don't need to work inside GOPATH**.
 ## Makefile: Your Task Runner
 
 Go doesn't have `npm scripts`. The standard replacement is a `Makefile` (or `Taskfile.yml` if you prefer). Here's a starter:
+
+> **This repo uses [`just`](https://github.com/casey/just), not Make** — see the
+> [`justfile`](../../../justfile) and [ADR-0005](../../../docs/adr/0005-just-as-task-runner.md).
+> `just` is a task runner (not a build system), so no `.PHONY` boilerplate and no
+> tab-vs-space traps. Learn to _read_ a Makefile — Go code in the wild ships one
+> constantly — but reach for `just fmt` / `just check` / `just test` here.
 
 ```makefile
 # Makefile
