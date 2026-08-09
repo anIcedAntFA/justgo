@@ -32,6 +32,16 @@ difference between a zero value and nil". Lives in the Chapter's `QUESTIONS.md`.
 An Exercise makes you _write_ code; a Question makes you _explain_.
 _Avoid_: quiz, FAQ.
 
+**Reflection**:
+An open-ended, essay-style prompt at the end of a Chapter — the learner answers in
+prose (compare Go vs JS/TS, explain a tradeoff), longer and more comparative than a
+recall Question. Worked answers live in the Chapter's `REFLECTIONS.md`
+(TL;DR + foldable deep dive), never inline in `README.md`. See
+[ADR-0004](./docs/adr/0004-reflection-answers-in-separate-file.md).
+_Note_: Chapter 01 labels these "Exercise 2" in its README — a misnomer; they are
+Reflections/Questions, not coding Exercises.
+_Avoid_: essay, journal.
+
 **Checkpoint**:
 A weekly, verifiable "can you do X yet?" success criterion from the roadmap. A
 learning assessment, not a deliverable.

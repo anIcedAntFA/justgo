@@ -37,10 +37,12 @@ number 01–42). Inside:
 
 ```
 NN-slug/
-├── README.md      ← the theory. GitHub renders it as the folder index. Required.
-├── QUESTIONS.md   ← interview-style recall questions, foldable <details> answers.
-├── examples/      ← runnable `package main` demos the README references (go run .)
-└── exercises/     ← a package with stubs + _test.go; make `go test` pass.
+├── README.md       ← the theory. GitHub renders it as the folder index. Required.
+├── QUESTIONS.md    ← interview-style recall questions, foldable <details> answers.
+├── REFLECTIONS.md  ← worked answers to the Chapter's open-ended Reflection prompts
+│                     (TL;DR + foldable deep dive). Optional — see ADR-0004.
+├── examples/       ← runnable `package main` demos the README references (go run .)
+└── exercises/      ← a package with stubs + _test.go; make `go test` pass.
 ```
 
 - **`examples/`** are `package main`, complete and runnable.

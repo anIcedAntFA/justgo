@@ -362,6 +362,9 @@ Write down your answers (seriously — writing forces clarity):
 3. What's the difference between concurrency and parallelism? Which does JavaScript support? Which does Go support?
 4. Why does Go culture discourage heavy dependency usage? How does this compare to the npm ecosystem?
 
+> Worked answers (TL;DR + foldable deep dives): [`REFLECTIONS.md`](./REFLECTIONS.md).
+> Write your own first, then compare.
+
 ### Exercise 3: Explore the Ecosystem
 
 Browse these briefly to get a feel for the Go world:
