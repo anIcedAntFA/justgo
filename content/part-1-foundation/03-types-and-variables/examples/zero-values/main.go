@@ -1,4 +1,4 @@
-// Command zero_values demonstrates Go's zero values — the reason Go has no
+// Command zero-values demonstrates Go's zero values — the reason Go has no
 // "undefined". Every variable is usable the moment it is declared.
 //
 // Run it from this directory:
