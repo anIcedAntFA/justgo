@@ -6,8 +6,8 @@
   // of Go hints is controlled by gopls "hints" below.
   "inlay_hints": {
     "enabled": true,
-    "show_type_hints": true,
-    "show_parameter_hints": true,
+    "show_type_hints": false,
+    "show_parameter_hints": false,
     "show_other_hints": true
   },
 

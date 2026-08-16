@@ -14,7 +14,7 @@ See the full plan in [`../ROADMAP.md`](../ROADMAP.md).
 | 01 | [History & Philosophy](./01-history-and-philosophy/README.md) | ✅ drafted                 |
 | 02 | [Setup & Tooling](./02-setup-and-tooling/README.md)           | ✅ drafted                 |
 | 03 | [Types & Variables](./03-types-and-variables/README.md)       | ✅ drafted (mould chapter) |
-| 04 | Control Flow                                                  | ⏳ not started             |
+| 04 | [Control Flow](./04-control-flow/README.md)                   | ✅ drafted                 |
 | 05 | Functions                                                     | ⏳ not started             |
 | 06 | Structs & Methods                                             | ⏳ not started             |
 | 07 | Interfaces                                                    | ⏳ not started             |
