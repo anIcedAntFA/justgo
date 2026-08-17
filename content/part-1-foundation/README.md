@@ -15,7 +15,7 @@ See the full plan in [`../ROADMAP.md`](../ROADMAP.md).
 | 02 | [Setup & Tooling](./02-setup-and-tooling/README.md)           | ✅ drafted                 |
 | 03 | [Types & Variables](./03-types-and-variables/README.md)       | ✅ drafted (mould chapter) |
 | 04 | [Control Flow](./04-control-flow/README.md)                   | ✅ drafted                 |
-| 05 | Functions                                                     | ⏳ not started             |
+| 05 | [Functions](./05-functions/README.md)                         | ✅ drafted                 |
 | 06 | Structs & Methods                                             | ⏳ not started             |
 | 07 | Interfaces                                                    | ⏳ not started             |
 | 08 | Pointers                                                      | ⏳ not started             |
