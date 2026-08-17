@@ -14,7 +14,7 @@ pre-commit:
       run: golangci-lint run ./...
     dprint:
       glob: "*.{md,json,jsonc,toml,yaml,yml}"
-      run: dprint fmt {staged_files}
+      run: dprint fmt --allow-no-files {staged_files}
       stage_fixed: true
     gitleaks:
       run: gitleaks git --staged --no-banner --redact

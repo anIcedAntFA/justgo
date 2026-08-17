@@ -1,8 +1,13 @@
 # Private reference material (source drafts from claude.ai) — kept local only
 .docs
 
-# Agent / skill tooling — managed locally, not tracked (matches dotfiles convention)
-.claude/
+# Agent / skill tooling — managed locally, not tracked (matches dotfiles convention),
+# except the custom skills we do want to version.
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/git-workflow/
+!.claude/skills/scaffold-chapter/
 .agents/
 .gemini/
 **/.claude/settings.local.json
