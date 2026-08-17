@@ -9,9 +9,11 @@ linters:
     - revive # style / best-practice lints
     - misspell # catch typos in comments & strings
   exclusions:
-    # Exercise stubs are intentionally incomplete while you solve them.
     paths:
+      # Exercise stubs are intentionally incomplete while you solve them.
       - ".*/exercises/.*"
+      # Archived scratch/learning files — kept for reference, not held to lint standards.
+      - ".*/archives/.*"
 
 formatters:
   enable:
