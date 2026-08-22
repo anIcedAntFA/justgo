@@ -8,5 +8,7 @@ package exercises
 //
 // TODO: return a func(int) int that calls g then f.
 func Compose(f, g func(int) int) func(int) int {
-	return nil // TODO: replace
+	return func(n int) int {
+		return f(g(n))
+	}
 }

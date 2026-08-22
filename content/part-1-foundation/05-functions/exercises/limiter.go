@@ -1,5 +1,7 @@
 package exercises
 
+import "errors"
+
 // Limiter returns a closure that allows up to max successful calls — each of the
 // first max calls returns nil — and returns a non-nil error on every call after
 // that. The remaining budget is state captured by the closure.
@@ -11,5 +13,15 @@ package exercises
 //
 // TODO: capture a counter in the returned closure and compare against max.
 func Limiter(max int) func() error {
-	return nil // TODO: replace
+	count := 0
+
+	return func() error {
+		count++
+
+		if count > max {
+			return errors.New("limit exceeded")
+		}
+
+		return nil
+	}
 }
