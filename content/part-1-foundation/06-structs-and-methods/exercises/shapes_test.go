@@ -6,7 +6,7 @@ import (
 )
 
 func TestShapeDescribePromotion(t *testing.T) {
-	t.Skip("Chapter 06 exercise: implement Shape.Describe, then delete this Skip")
+	// t.Skip("Chapter 06 exercise: implement Shape.Describe, then delete this Skip")
 
 	// Describe is defined on Shape but called through the embedding types — this
 	// is method promotion.
@@ -22,7 +22,7 @@ func TestShapeDescribePromotion(t *testing.T) {
 }
 
 func TestShapeArea(t *testing.T) {
-	t.Skip("Chapter 06 exercise: implement Area, then delete this Skip")
+	// t.Skip("Chapter 06 exercise: implement Area, then delete this Skip")
 
 	cases := []struct {
 		name string

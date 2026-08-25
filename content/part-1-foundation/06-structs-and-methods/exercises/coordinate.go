@@ -16,7 +16,7 @@ type PlaceCache map[Coordinate]string
 //
 // TODO: implement (one line — write into the map).
 func (pc PlaceCache) Set(coord Coordinate, name string) {
-	// TODO: replace
+	pc[coord] = name
 }
 
 // Get returns the name stored at coord and whether it was present, mirroring the
@@ -24,5 +24,6 @@ func (pc PlaceCache) Set(coord Coordinate, name string) {
 //
 // TODO: implement with a comma-ok map read.
 func (pc PlaceCache) Get(coord Coordinate) (string, bool) {
-	return "", false // TODO: replace
+	name, ok := pc[coord]
+	return name, ok
 }

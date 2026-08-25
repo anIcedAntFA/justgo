@@ -1,5 +1,10 @@
 package exercises
 
+import (
+	"fmt"
+	"math"
+)
+
 // Shape is the embedded base. Circle and Square each embed it, so Shape's
 // Describe method is PROMOTED onto them — you can call circle.Describe() even
 // though Describe is defined here.
@@ -11,7 +16,7 @@ type Shape struct {
 //
 // TODO: implement with fmt.Sprintf and add the import yourself.
 func (s Shape) Describe() string {
-	return "" // TODO: replace
+	return fmt.Sprintf("I am a %s", s.Name)
 }
 
 // Circle embeds Shape and adds a radius.
@@ -24,7 +29,7 @@ type Circle struct {
 //
 // TODO: implement using math.Pi and add the import yourself.
 func (c Circle) Area() float64 {
-	return 0 // TODO: replace
+	return c.Radius * c.Radius * math.Pi
 }
 
 // Square embeds Shape and adds a side length.
@@ -37,5 +42,5 @@ type Square struct {
 //
 // TODO: implement.
 func (s Square) Area() float64 {
-	return 0 // TODO: replace
+	return s.Side * s.Side
 }

@@ -6,7 +6,7 @@ import (
 )
 
 func TestNewHTTPClientDefaults(t *testing.T) {
-	t.Skip("Chapter 06 exercise: implement NewHTTPClient, then delete this Skip")
+	// t.Skip("Chapter 06 exercise: implement NewHTTPClient, then delete this Skip")
 
 	c := NewHTTPClient("https://api.example.com")
 	if c == nil {
@@ -24,7 +24,7 @@ func TestNewHTTPClientDefaults(t *testing.T) {
 }
 
 func TestHTTPClientChaining(t *testing.T) {
-	t.Skip("Chapter 06 exercise: implement the setters, then delete this Skip")
+	// t.Skip("Chapter 06 exercise: implement the setters, then delete this Skip")
 
 	c := NewHTTPClient("https://api.example.com").
 		SetTimeout(60 * time.Second).

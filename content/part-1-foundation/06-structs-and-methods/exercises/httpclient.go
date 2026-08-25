@@ -16,19 +16,25 @@ type HTTPClient struct {
 //
 // TODO: return &HTTPClient{...} with baseURL set and the two defaults.
 func NewHTTPClient(baseURL string) *HTTPClient {
-	return nil // TODO: replace
+	return &HTTPClient{
+		baseURL: baseURL,
+		timeout: 30 * time.Second,
+		retries: 3,
+	}
 }
 
 // SetTimeout overrides the timeout and returns the receiver so calls chain.
 //
 // TODO: set c.timeout and return c.
 func (c *HTTPClient) SetTimeout(d time.Duration) *HTTPClient {
-	return nil // TODO: replace
+	c.timeout = d
+	return c
 }
 
 // SetRetries overrides the retry count and returns the receiver so calls chain.
 //
 // TODO: set c.retries and return c.
 func (c *HTTPClient) SetRetries(n int) *HTTPClient {
-	return nil // TODO: replace
+	c.retries = n
+	return c
 }

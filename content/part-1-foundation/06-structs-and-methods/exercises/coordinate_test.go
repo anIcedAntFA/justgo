@@ -3,8 +3,6 @@ package exercises
 import "testing"
 
 func TestPlaceCache(t *testing.T) {
-	t.Skip("Chapter 06 exercise: implement PlaceCache, then delete this Skip")
-
 	cache := PlaceCache{}
 	cache.Set(Coordinate{Lat: 10.5, Lng: 20.5}, "Home")
 

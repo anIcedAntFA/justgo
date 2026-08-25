@@ -3,7 +3,7 @@ package exercises
 import "testing"
 
 func TestBankAccount(t *testing.T) {
-	t.Skip("Chapter 06 exercise: implement BankAccount, then delete this Skip")
+	// t.Skip("Chapter 06 exercise: implement BankAccount, then delete this Skip")
 
 	cases := []struct {
 		name        string
@@ -47,7 +47,7 @@ func TestBankAccount(t *testing.T) {
 }
 
 func TestBankAccountString(t *testing.T) {
-	t.Skip("Chapter 06 exercise: implement BankAccount.String, then delete this Skip")
+	// t.Skip("Chapter 06 exercise: implement BankAccount.String, then delete this Skip")
 
 	acc := &BankAccount{Owner: "Alice", Balance: 150}
 	want := "Alice: 150.00"
