@@ -8,6 +8,7 @@
 .claude/skills/*
 !.claude/skills/git-workflow/
 !.claude/skills/scaffold-chapter/
+!.claude/skills/verify-exercises/
 .agents/
 .gemini/
 **/.claude/settings.local.json
