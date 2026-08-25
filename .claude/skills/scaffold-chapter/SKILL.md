@@ -28,7 +28,10 @@ mirror its shape.** The rules behind the mould live in
    reference draft exists (the `.docs/` folder is git-ignored and personal):
    - **`.docs/NN-slug.md` exists** → derive the README from it, but **verify every
      claim against current Go first** and modernize stale idioms before pasting.
-     This is the [`/grill-with-docs`](../grill-with-docs/) flow.
+     For a concept-heavy chapter, run the **`research`** skill first to check the
+     draft against primary Go sources (spec, go.dev, stdlib) into a cited `.docs/`
+     notes file, then derive from the verified facts. This is the
+     [`/grill-with-docs`](../grill-with-docs/) flow.
    - **No reference** → build a detailed README **outline**: section headings drawn
      from the chapter's ROADMAP key-topics row, each with a short `TODO`. Leave the
      teaching prose to the owner (CLAUDE.md) — scaffold the skeleton, don't fabricate

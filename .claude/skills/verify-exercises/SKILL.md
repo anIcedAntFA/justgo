@@ -11,7 +11,7 @@ non-idiomatic bits, *then* give the exact idiomatic solution. This is a learning
 repo — the review is a lesson, not a patch.
 
 The conventions behind an exercise (table-driven `_test.go`, the `t.Skip` pattern,
-exercise dirs excluded from `golangci-lint`) live in [`CLAUDE.md`](../../CLAUDE.md);
+exercise dirs excluded from `golangci-lint`) live in [`CLAUDE.md`](../../../CLAUDE.md);
 read it as the source of truth. This skill caches only the traps that trip
 verification.
 
