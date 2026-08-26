@@ -54,6 +54,14 @@ for _, s := range shapes {
 This is polymorphism in Go. Different types, same interface, uniform handling.
 
 > Runnable demo: [`examples/satisfaction`](./examples/satisfaction/main.go).
+>
+> Before/after demo — a coffee shop with and without an interface:
+> [`examples/coffee`](./examples/coffee/main.go).
+
+> **TODO (owner):** write the "before an interface vs. after" prose here — brewing
+> coffee as a string-keyed `switch` (`examples/coffee/before.go`) vs. a `Brewer`
+> interface (`examples/coffee/after.go`): open/closed, implicit satisfaction for a
+> brewer you don't own, and compile-time safety over stringly-typed methods.
 
 ---
 
@@ -626,6 +634,10 @@ Write a function `Describe(v any) string` that uses a type switch to render valu
 - everything else → `%v` with type name
 
 (This is essentially a mini value pretty-printer — great practice for type switches.)
+
+### Exercise 5: Brewer Interface & a Fake for Testing
+
+In [`exercises/brewer.go`](./exercises/brewer.go), implement `Serve(b Brewer, g Grounds) Cup` — it runs a brewer over the grounds and returns the cup. The point isn't `Serve`'s one-line body; it's _why_ it takes a `Brewer` interface: the provided test passes a **`fakeBrewer`** instead of a real machine and asserts `Serve` calls `Brew` and returns its cup. Accepting an interface is what makes the code testable. Remove the `t.Skip` in `brewer_test.go` once `Serve` is implemented.
 
 ---
 
