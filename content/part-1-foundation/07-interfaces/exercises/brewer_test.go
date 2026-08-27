@@ -19,8 +19,6 @@ func (f *fakeBrewer) Brew(g Grounds) Cup {
 }
 
 func TestServeUsesTheBrewer(t *testing.T) {
-	t.Skip("Chapter 07 exercise: implement Serve, then delete this Skip")
-
 	cases := []struct {
 		name    string
 		grounds Grounds

@@ -69,6 +69,8 @@ func main() {
 	if err != nil {
 		fmt.Println("error is not nil!") // THIS RUNS — surprising!
 	}
+
+	fmt.Println(math.Mod(3661, 3600))
 }
 
 type MyError struct{}

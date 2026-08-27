@@ -6,7 +6,7 @@ import (
 )
 
 func TestWriteReport(t *testing.T) {
-	t.Skip("Chapter 07 exercise: implement WriteReport, then delete this Skip")
+	// t.Skip("Chapter 07 exercise: implement WriteReport, then delete this Skip")
 
 	cases := []struct {
 		name string

@@ -6,7 +6,7 @@ import (
 )
 
 func TestDurationString(t *testing.T) {
-	t.Skip("Chapter 07 exercise: implement Duration.String, then delete this Skip")
+	// t.Skip("Chapter 07 exercise: implement Duration.String, then delete this Skip")
 
 	cases := []struct {
 		in   Duration

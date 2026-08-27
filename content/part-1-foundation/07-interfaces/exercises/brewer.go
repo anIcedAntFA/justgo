@@ -27,5 +27,5 @@ type Brewer interface {
 //
 // TODO: implement Serve (one line: call b.Brew(g) and return it).
 func Serve(b Brewer, g Grounds) Cup {
-	return Cup{} // TODO: replace
+	return b.Brew(g)
 }

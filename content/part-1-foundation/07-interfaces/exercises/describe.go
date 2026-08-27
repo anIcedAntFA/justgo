@@ -1,5 +1,11 @@
 package exercises
 
+import (
+	"fmt"
+	"sort"
+	"strings"
+)
+
 // Describe renders a value differently depending on its dynamic type, using a
 // type switch. Rules:
 //
@@ -15,5 +21,70 @@ package exercises
 // and map[string]any. Sort the map keys so the output is deterministic. Add the
 // imports you need (fmt, sort, strings).
 func Describe(v any) string {
-	return "" // TODO: replace
+	switch x := v.(type) {
+	case string:
+		return fmt.Sprintf("%q", x)
+	case int:
+		return fmt.Sprintf("%d", x)
+	case float64:
+		return fmt.Sprintf("%v", x)
+	case bool:
+		if x {
+			return "yes"
+		}
+		return "no"
+	case []any:
+		parts := make([]string, len(x))
+		for i, el := range x {
+			parts[i] = Describe(el)
+		}
+		return "[" + strings.Join(parts, ", ") + "]"
+	case map[string]any:
+		keys := make([]string, 0, len(x))
+		for k := range x {
+			keys = append(keys, k)
+		}
+		sort.Strings(keys)
+		parts := make([]string, len(keys))
+		for i, k := range keys {
+			parts[i] = k + ": " + Describe(x[k])
+		}
+		return "{" + strings.Join(parts, ", ") + "}"
+	default:
+		return fmt.Sprintf("%v (%T)", x, x)
+	}
 }
+
+// Describe(v any)
+// │
+// └── type switch
+//     │
+//     ├── string
+//     │     └── quote
+//     │
+//     ├── int
+//     │     └── format number
+//     │
+//     ├── float64
+//     │     └── format number
+//     │
+//     ├── bool
+//     │     ├── true  → yes
+//     │     └── false → no
+//     │
+//     ├── []any
+//     │     │
+//     │     ├── Describe(element 1)
+//     │     ├── Describe(element 2)
+//     │     └── ...
+//     │
+//     ├── map[string]any
+//     │     │
+//     │     ├── extract keys
+//     │     ├── sort keys
+//     │     ├── Describe(value 1)
+//     │     ├── Describe(value 2)
+//     │     └── ...
+//     │
+//     └── default
+//           └── %v (%T)

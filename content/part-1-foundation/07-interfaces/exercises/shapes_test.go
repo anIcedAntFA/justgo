@@ -6,7 +6,7 @@ import (
 )
 
 func TestShapeAreaPerimeter(t *testing.T) {
-	t.Skip("Chapter 07 exercise: implement the Shape types, then delete this Skip")
+	// t.Skip("Chapter 07 exercise: implement the Shape types, then delete this Skip")
 
 	cases := []struct {
 		name      string
@@ -32,8 +32,6 @@ func TestShapeAreaPerimeter(t *testing.T) {
 }
 
 func TestTotalArea(t *testing.T) {
-	t.Skip("Chapter 07 exercise: implement TotalArea, then delete this Skip")
-
 	shapes := []Shape{
 		Rectangle{Width: 10, Height: 5}, // 50
 		Circle{Radius: 2},               // 4π

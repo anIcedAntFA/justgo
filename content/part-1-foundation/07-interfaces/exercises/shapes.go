@@ -4,6 +4,8 @@
 // matching _test.go and run `go test ./...` until it passes.
 package exercises
 
+import "math"
+
 // Shape is satisfied by any type with Area and Perimeter methods. Rectangle,
 // Circle, and Triangle must each satisfy it — implicitly, just by having the
 // methods. No "implements" keyword.
@@ -18,8 +20,13 @@ type Rectangle struct {
 }
 
 // TODO: implement Area (Width*Height) and Perimeter (2*(Width+Height)).
-func (r Rectangle) Area() float64      { return 0 }
-func (r Rectangle) Perimeter() float64 { return 0 }
+func (r Rectangle) Area() float64 {
+	return r.Width * r.Height
+}
+
+func (r Rectangle) Perimeter() float64 {
+	return (r.Width + r.Height) * 2
+}
 
 // Circle has a radius.
 type Circle struct {
@@ -28,8 +35,13 @@ type Circle struct {
 
 // TODO: implement Area (π·r²) and Perimeter (2·π·r) using math.Pi — add the
 // math import yourself.
-func (c Circle) Area() float64      { return 0 }
-func (c Circle) Perimeter() float64 { return 0 }
+func (c Circle) Area() float64 {
+	return c.Radius * c.Radius * math.Pi
+}
+
+func (c Circle) Perimeter() float64 {
+	return 2 * math.Pi * c.Radius
+}
 
 // Triangle is defined by the lengths of its three sides.
 type Triangle struct {
@@ -42,13 +54,26 @@ type Triangle struct {
 //	area = √(s(s-A)(s-B)(s-C))
 //
 // math.Sqrt lives in the math package.
-func (t Triangle) Area() float64      { return 0 }
-func (t Triangle) Perimeter() float64 { return 0 }
+func (t Triangle) Area() float64 {
+	s := (t.A + t.B + t.C) / 2
+	area := math.Sqrt(s * (s - t.A) * (s - t.B) * (s - t.C))
+	return area
+}
+
+func (t Triangle) Perimeter() float64 {
+	return t.A + t.B + t.C
+}
 
 // TotalArea sums the Area of every shape in the slice — the payoff of the
 // interface: one function over a mixed slice of concrete types.
 //
 // TODO: implement.
 func TotalArea(shapes []Shape) float64 {
-	return 0 // TODO: replace
+	total := 0.0
+
+	for _, shape := range shapes {
+		total += shape.Area()
+	}
+
+	return total
 }

@@ -3,8 +3,6 @@ package exercises
 import "testing"
 
 func TestDescribe(t *testing.T) {
-	t.Skip("Chapter 07 exercise: implement Describe, then delete this Skip")
-
 	cases := []struct {
 		name string
 		in   any
