@@ -18,7 +18,7 @@ See the full plan in [`../ROADMAP.md`](../ROADMAP.md).
 | 05 | [Functions](./05-functions/README.md)                         | ✅ drafted                 |
 | 06 | [Structs & Methods](./06-structs-and-methods/README.md)       | ✅ drafted                 |
 | 07 | [Interfaces](./07-interfaces/README.md)                       | ✅ drafted                 |
-| 08 | Pointers                                                      | ⏳ not started             |
+| 08 | [Pointers](./08-pointers/README.md)                           | ✅ drafted                 |
 | 09 | Error Handling                                                | ⏳ not started             |
 | 10 | Collections                                                   | ⏳ not started             |
 | 11 | Packages & Modules                                            | ⏳ not started             |
