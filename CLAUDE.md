@@ -42,7 +42,8 @@ NN-slug/
 ├── REFLECTIONS.md  ← worked answers to the Chapter's open-ended Reflection prompts
 │                     (TL;DR + foldable deep dive). Optional — see ADR-0004.
 ├── examples/       ← runnable `package main` demos the README references (go run .)
-└── exercises/      ← a package with stubs + _test.go; make `go test` pass.
+├── exercises/      ← a package with stubs + _test.go; make `go test` pass.
+└── archives/       ← optional personal scratch: a `package main` playground + raw notes.
 ```
 
 - **`examples/`** are `package main`, complete and runnable.
@@ -50,6 +51,11 @@ NN-slug/
   table-driven `_test.go` and a `t.Skip(...)` at the top so `go test ./...` stays
   green until the learner removes the Skip and implements it.
 - Chapters with no code (e.g. 01 History) omit `examples/` and `exercises/`.
+- **`archives/`** (optional) is the owner's personal scratch — a `package main`
+  playground plus raw study notes (`.md`) parked per chapter. It's committed but is
+  **not** taught content; scaffolding never creates it (the owner adds it while
+  studying). Like `exercises/` it's excluded from `golangci-lint`, but it's still
+  compiled, vetted, and tested by `go ./...`, so keep it building.
 - Copy chapter 03 verbatim as the starting skeleton for a new chapter.
 
 ## Content authorship
@@ -75,5 +81,6 @@ just check    # what CI runs: gofumpt check, go vet, golangci-lint, dprint, test
 just test     # go test -race ./...
 ```
 
-Always run `just fmt` (or at least `gofumpt -w`) on Go you touch. Exercise dirs are
-excluded from `golangci-lint` on purpose — don't "fix" their intentional stubs.
+Always run `just fmt` (or at least `gofumpt -w`) on Go you touch. Exercise and archive
+dirs are excluded from `golangci-lint` on purpose — don't "fix" their intentional stubs
+or scratch. `examples/` **are** linted, so keep demo code lint-clean.
