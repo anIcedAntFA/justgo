@@ -10,7 +10,10 @@ package exercises
 //
 // TODO: dereference a and b and exchange the values they point to.
 func swap(a, b *int) {
-	// TODO: implement
-	_ = a
-	_ = b
+	temp := *a
+	*a = *b
+	*b = temp
 }
+
+// a := 10, b := 20 -> a := 20, b := 10
+// 2

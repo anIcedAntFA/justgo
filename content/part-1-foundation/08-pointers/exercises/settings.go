@@ -22,6 +22,50 @@ type Resolved struct {
 // TODO: implement — for each field, keep the default when the pointer is nil,
 // otherwise dereference and use the pointed-to value.
 func Resolve(s Settings) Resolved {
-	// TODO: implement
-	return Resolved{}
+	timeout := 30
+	verbose := false
+
+	if s.Timeout != nil {
+		timeout = *s.Timeout
+	}
+
+	if s.Verbose != nil {
+		verbose = *s.Verbose
+	}
+
+	return Resolved{
+		Timeout: timeout,
+		Verbose: verbose,
+	}
 }
+
+// zero value: int -> 0, bool -> false
+// Setting{} -> Timeout = 0, Verbose = false
+// but we don't know Timeout = 0
+// User does not set Timeout
+// or user explicitly set Timeout = 0
+//
+// *int
+// │
+// ├── nil
+// │     └── không có giá trị
+// │
+// └── non-nil
+//       └── có giá trị int
+//
+// *bool
+// │
+// ├── nil
+// │     └── không set
+// │
+// └── non-nil
+//       └── có bool, kể cả false
+//
+// default
+//   │
+//   ▼
+// check presence
+//   │
+//   ├── absent → keep default
+//   │
+//   └── present → dereference + override

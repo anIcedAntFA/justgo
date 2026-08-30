@@ -8,7 +8,7 @@ func intPtr(v int) *int    { return &v }
 func boolPtr(v bool) *bool { return &v }
 
 func TestResolve(t *testing.T) {
-	t.Skip("Chapter 08 exercise: implement Resolve, then delete this Skip")
+	// t.Skip("Chapter 08 exercise: implement Resolve, then delete this Skip")
 
 	cases := []struct {
 		name string

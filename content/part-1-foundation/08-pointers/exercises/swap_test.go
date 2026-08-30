@@ -3,7 +3,7 @@ package exercises
 import "testing"
 
 func TestSwap(t *testing.T) {
-	t.Skip("Chapter 08 exercise: implement swap, then delete this Skip")
+	// t.Skip("Chapter 08 exercise: implement swap, then delete this Skip")
 
 	cases := []struct {
 		name         string
