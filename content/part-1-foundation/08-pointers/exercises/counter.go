@@ -14,7 +14,7 @@ type Counter struct {
 //
 // TODO: implement.
 func (c *Counter) Increment() {
-	// TODO: implement
+	c.count++
 }
 
 // Value returns the current count.
@@ -22,5 +22,5 @@ func (c *Counter) Increment() {
 // TODO: implement.
 func (c Counter) Value() int {
 	// TODO: implement
-	return 0
+	return c.count
 }

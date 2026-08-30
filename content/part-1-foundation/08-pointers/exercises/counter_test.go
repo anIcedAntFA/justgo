@@ -3,7 +3,7 @@ package exercises
 import "testing"
 
 func TestCounterIncrement(t *testing.T) {
-	t.Skip("Chapter 08 exercise: implement Counter.Increment and Value, then delete this Skip")
+	// t.Skip("Chapter 08 exercise: implement Counter.Increment and Value, then delete this Skip")
 
 	cases := []struct {
 		name string
