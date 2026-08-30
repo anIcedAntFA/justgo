@@ -41,16 +41,43 @@ verification.
    pointer-receiver method takes pointer receivers everywhere), comma-ok reads,
    error-wrapping style, zero-value correctness, unnecessary allocation.
 
-5. **Teach, then solve.** Report per exercise:
-   - **Concept** — the one thing this exercise drills (one or two sentences).
+5. **Teach the reasoning, then solve.** Lead the report with a one-line **Chapter
+   verdict summary** — every exercise and its verdict on one line each, so the
+   learner can triage before scrolling. Then, per exercise:
+
    - **Verdict** — solved / unsolved / non-idiomatic, with the evidence from
-     steps 2–4.
-   - **Guide** — if unsolved or non-idiomatic, walk through the reasoning so the
-     learner sees *why*, before the answer.
-   - **Exact solution** — the idiomatic implementation, in a code block.
+     steps 2–4. Keep it a crisp standalone line; don't bury it in the Guide.
+   - **Guide** — a fixed five-stage walkthrough of *how to think*, not just what
+     to type. The stages are always, in order:
+     1. **Read the signature & table** — before any code, what do the func/type
+        signature and the `_test.go` cases tell you? Inputs, outputs, and the edge
+        rows the table quietly asserts (empty, `nil`, zero value, negative).
+     2. **Mental model** — the one Go concept and the picture to hold in your head
+        (this absorbs the old "Concept": "a struct can't hold itself by value → link
+        via pointer").
+     3. **Decision points** — the forks the solution hinges on (`nil` head vs not,
+        pointer vs value receiver, *why return the head*).
+     4. **Steps** — the ordered implementation plan in plain language, **no code**.
+     5. **Idiomatic solution** — the exact code, in a code block.
+   - **Exact solution** is stage 5 above.
+
+   **Scale the Guide by verdict:**
+   - **Unsolved** → all five stages; stage 5 is the exact implementation.
+   - **Solved but non-idiomatic** → all five stages; stage 5 is the *corrected*
+     implementation.
+   - **Solved and idiomatic** → compress to **stages 2 and 3 only**, one line each
+     ("your code returns the head because an empty-list append has no node to
+     mutate — confirm that was your reasoning"). Drop stages 1, 4, and 5; stage 5
+     shrinks to a half-line affirming the learner's existing code, not a fresh block.
+
+   **Format budget** (so a 6-exercise Chapter doesn't become a wall): each stage is
+   **1–2 sentences or bullets** — no prose paragraphs; code blocks appear **only** in
+   stage 5.
 
 ## Done when
 
 Every exercise in the Chapter has a verdict backed by a passing (or failing, and
-named) test, and every unsolved or non-idiomatic one has a guide **and** an exact
-solution. A Chapter with a live `t.Skip` anywhere is not done.
+named) test, and every one has a Guide scaled to its verdict — the full five stages
+for anything unsolved or non-idiomatic (with an exact or corrected solution), the
+compressed stages 2–3 for anything solved and idiomatic. A Chapter with a live
+`t.Skip` anywhere is not done.
