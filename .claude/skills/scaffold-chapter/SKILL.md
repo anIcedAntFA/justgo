@@ -36,6 +36,12 @@ mirror its shape.** The rules behind the mould live in
      from the chapter's ROADMAP key-topics row, each with a short `TODO`. Leave the
      teaching prose to the owner (CLAUDE.md) — scaffold the skeleton, don't fabricate
      the lesson.
+   - **Diagrams** — add one only when the concept is **spatial** (a shape in memory:
+     slice header → backing array, struct fields, pointer aliasing) or **temporal**
+     (a flow or state machine). ASCII line-art for memory/structural layout, Mermaid
+     (```mermaid fence, GitHub renders it) for branching/cyclic flow. The medium rule
+     and why live in [ADR-0006](../../../docs/adr/0006-diagram-medium.md) — follow it,
+     don't restate. A concept that is neither (e.g. ch03) gets no diagram.
 3. **QUESTIONS.md** — interview-style recall questions with foldable `<details>`
    answers, mirroring ch03. Write as many as the chapter's concepts warrant.
 4. **If the chapter has code** — mirror ch03's file shapes, and let the chapter's
