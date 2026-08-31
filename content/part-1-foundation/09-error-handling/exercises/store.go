@@ -23,16 +23,19 @@ type KVStore struct {
 //
 // TODO: initialise the data map so Create can write into it.
 func NewKVStore() *KVStore {
-	// TODO: implement
-	return nil
+	return &KVStore{
+		data: make(map[string]string),
+	}
 }
 
 // Get returns the value for key, or ErrKeyNotFound if the key is absent.
 //
 // TODO: implement using the comma-ok map lookup.
 func (s *KVStore) Get(key string) (string, error) {
-	// TODO: implement
-	return "", nil
+	if value, ok := s.data[key]; ok {
+		return value, nil
+	}
+	return "", ErrKeyNotFound
 }
 
 // Create stores value under key. If the key already exists it returns ErrKeyExists
@@ -40,7 +43,10 @@ func (s *KVStore) Get(key string) (string, error) {
 //
 // TODO: implement.
 func (s *KVStore) Create(key, value string) error {
-	// TODO: implement
+	if _, ok := s.data[key]; ok {
+		return ErrKeyExists
+	}
+	s.data[key] = value
 	return nil
 }
 
@@ -48,6 +54,9 @@ func (s *KVStore) Create(key, value string) error {
 //
 // TODO: implement.
 func (s *KVStore) Delete(key string) error {
-	// TODO: implement
-	return nil
+	if _, ok := s.data[key]; ok {
+		delete(s.data, key)
+		return nil
+	}
+	return ErrKeyNotFound
 }

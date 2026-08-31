@@ -6,7 +6,7 @@ import (
 )
 
 func TestKVStoreSentinels(t *testing.T) {
-	t.Skip("Chapter 09 exercise: implement KVStore, then delete this Skip")
+	// t.Skip("Chapter 09 exercise: implement KVStore, then delete this Skip")
 
 	s := NewKVStore()
 
