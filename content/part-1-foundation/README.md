@@ -21,7 +21,7 @@ See the full plan in [`../ROADMAP.md`](../ROADMAP.md).
 | 08 | [Pointers](./08-pointers/README.md)                           | ✅ drafted                 |
 | 09 | [Error Handling](./09-error-handling/README.md)               | ✅ drafted                 |
 | 10 | [Collections](./10-collections/README.md)                     | ✅ drafted                 |
-| 11 | Packages & Modules                                            | ⏳ not started             |
+| 11 | [Packages & Modules](./11-packages-and-modules/README.md)     | ✅ drafted                 |
 | 12 | Generics                                                      | ⏳ not started             |
 | 13 | Testing                                                       | ⏳ not started             |
 
