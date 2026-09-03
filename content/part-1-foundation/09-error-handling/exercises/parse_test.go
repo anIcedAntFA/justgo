@@ -6,7 +6,7 @@ import (
 )
 
 func TestParseErrorAs(t *testing.T) {
-	t.Skip("Chapter 09 exercise: implement ParseError and parse, then delete this Skip")
+	// t.Skip("Chapter 09 exercise: implement ParseError and parse, then delete this Skip")
 
 	err := parse("x = = 1")
 	if err == nil {

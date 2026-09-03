@@ -1,5 +1,9 @@
 package exercises
 
+import (
+	"fmt"
+)
+
 // Exercise 3: Custom Error Type with errors.As.
 //
 // Define a ParseError that carries structured data (line, column, message). Give it
@@ -21,16 +25,14 @@ type ParseError struct {
 //
 // TODO: implement.
 func (e *ParseError) Error() string {
-	// TODO: implement
-	return ""
+	return fmt.Sprintf("parse error at line %v, column %v: %v", e.Line, e.Column, e.Message)
 }
 
 // Unwrap returns the wrapped underlying error so errors.Is/As can traverse it.
 //
 // TODO: return the wrapped error field.
 func (e *ParseError) Unwrap() error {
-	// TODO: implement
-	return nil
+	return e.Err
 }
 
 // parse always fails at line 2, column 5. It returns a *ParseError wrapped in
@@ -40,6 +42,43 @@ func (e *ParseError) Unwrap() error {
 // TODO: build a *ParseError{Line: 2, Column: 5, Message: "unexpected token"} and
 // return it wrapped, e.g. fmt.Errorf("parsing %q: %w", input, pe).
 func parse(input string) error {
-	// TODO: implement
-	return nil
+	pe := &ParseError{
+		Line:    2,
+		Column:  5,
+		Message: "unexpected token",
+	}
+	return fmt.Errorf("parsing %q: %w", input, pe)
 }
+
+// parse("x = = 1")
+//         │
+//         ▼
+// create ParseError
+//         │
+//         │ Line = 2
+//         │ Column = 5
+//         │ Message = "unexpected token"
+//         ▼
+//       pe
+//         │
+//         │ %w
+//         ▼
+// fmt.Errorf("parsing %q: %w", input, pe)
+//         │
+//         ▼
+//       return
+//         │
+//         ▼
+//        err
+//         │
+//         │ errors.AsType[*ParseError]
+//         ▼
+//    traverse chain
+//         │
+//         │ Unwrap()
+//         ▼
+//    *ParseError
+//         │
+//         ├── Line   = 2
+//         ├── Column = 5
+//         └── Message

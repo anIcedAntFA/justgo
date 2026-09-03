@@ -7,7 +7,7 @@ import (
 )
 
 func TestWrappingChain(t *testing.T) {
-	t.Skip("Chapter 09 exercise: implement a, b, c, then delete this Skip")
+	// t.Skip("Chapter 09 exercise: implement a, b, c, then delete this Skip")
 
 	err := a()
 	if err == nil {

@@ -1,5 +1,7 @@
 package exercises
 
+import "fmt"
+
 // Exercise 4: Recovery Middleware (Preview of Part 2).
 //
 // safeExecute runs fn and turns a panic into a returned error, so one bad call can't
@@ -14,6 +16,11 @@ package exercises
 // TODO: use a deferred closure with recover() and a named return value so the
 // closure can set the returned error after a panic.
 func safeExecute(fn func() error) (err error) {
-	// TODO: implement
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("recovered from panic: %v", r)
+		}
+	}()
+
 	return fn()
 }

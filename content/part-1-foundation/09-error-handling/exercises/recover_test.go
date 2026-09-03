@@ -6,7 +6,7 @@ import (
 )
 
 func TestSafeExecute(t *testing.T) {
-	t.Skip("Chapter 09 exercise: implement safeExecute, then delete this Skip")
+	// t.Skip("Chapter 09 exercise: implement safeExecute, then delete this Skip")
 
 	errBoom := errors.New("boom")
 

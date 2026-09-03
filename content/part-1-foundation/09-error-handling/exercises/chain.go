@@ -1,6 +1,9 @@
 package exercises
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 // Exercise 2: Error Wrapping Chain.
 //
@@ -15,22 +18,19 @@ var ErrRoot = errors.New("root cause")
 //
 // TODO: return ErrRoot wrapped with context "c: ..." using fmt.Errorf and %w.
 func c() error {
-	// TODO: implement
-	return nil
+	return fmt.Errorf("c: %w", ErrRoot)
 }
 
 // b calls c and wraps any error with its own context.
 //
 // TODO: if c() fails, return it wrapped as "b: %w".
 func b() error {
-	// TODO: implement
-	return nil
+	return fmt.Errorf("b: %w", c())
 }
 
 // a calls b and wraps any error with its own context.
 //
 // TODO: if b() fails, return it wrapped as "a: %w".
 func a() error {
-	// TODO: implement
-	return nil
+	return fmt.Errorf("a: %w", b())
 }
