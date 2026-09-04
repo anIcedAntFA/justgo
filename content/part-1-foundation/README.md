@@ -23,7 +23,7 @@ See the full plan in [`../ROADMAP.md`](../ROADMAP.md).
 | 10 | [Collections](./10-collections/README.md)                     | ✅ drafted                 |
 | 11 | [Packages & Modules](./11-packages-and-modules/README.md)     | ✅ drafted                 |
 | 12 | [Generics](./12-generics/README.md)                           | ✅ drafted                 |
-| 13 | Testing                                                       | ⏳ not started             |
+| 13 | [Testing](./13-testing/README.md)                             | ✅ drafted                 |
 
 ## Milestone project
 

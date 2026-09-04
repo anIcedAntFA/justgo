@@ -597,4 +597,4 @@ For each signature, decide **generic, interface, or concrete** — and justify i
 | Direction    | Link                                                                     |
 | ------------ | ------------------------------------------------------------------------ |
 | **Previous** | [← Chapter 11: Packages & Modules](../11-packages-and-modules/README.md) |
-| **Next**     | Chapter 13: Testing _(not started)_                                      |
+| **Next**     | [Chapter 13: Testing →](../13-testing/README.md)                         |
