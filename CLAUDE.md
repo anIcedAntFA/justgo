@@ -60,11 +60,15 @@ NN-slug/
 
 ## Content authorship
 
-The **theory in each `README.md` is written by the repo owner** (composed with
-claude.ai and pasted in). Do **not** fabricate or rewrite chapter teaching content
-unless explicitly asked — scaffold the structure, write the code/exercises/questions
-skeleton, and leave the prose to the owner. Only chapters up to 03 are drafted;
-04–42 are not started yet.
+Chapter theory follows an **"agent drafts → owner refines"** model. If a
+`.docs/NN-slug.md` draft exists, derive the `README.md` from it (verified against
+current Go). If not, the **agent writes a complete first draft** as an expert Go
+engineer — real prose, not `TODO`s — verified against primary Go sources
+(pkg.go.dev, spec, go.dev), with a cited notes file in `.docs/`. The **owner owns
+the final voice** and may rewrite freely; once a chapter is owner-edited, treat it as
+owner-owned and don't rewrite it unprompted (draft only what's missing). See
+[ADR-0007](./docs/adr/0007-agent-drafts-chapter-theory.md). Not every chapter is
+drafted yet — the Part `README.md` index shows status.
 
 ## Adding things
 

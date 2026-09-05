@@ -32,10 +32,13 @@ mirror its shape.** The rules behind the mould live in
      draft against primary Go sources (spec, go.dev, stdlib) into a cited `.docs/`
      notes file, then derive from the verified facts. This is the
      [`/grill-with-docs`](../grill-with-docs/) flow.
-   - **No reference** → build a detailed README **outline**: section headings drawn
-     from the chapter's ROADMAP key-topics row, each with a short `TODO`. Leave the
-     teaching prose to the owner (CLAUDE.md) — scaffold the skeleton, don't fabricate
-     the lesson.
+   - **No reference** → **write a complete first draft** of the README as an expert
+     Go engineer: headings from the chapter's ROADMAP key-topics row, each filled with
+     real teaching prose (JS/TS comparisons, Common Mistakes, milestone ties) — **not
+     `TODO`s**. Verify every claim against primary Go sources (pkg.go.dev, spec, go.dev)
+     while writing, and drop a cited notes file in `.docs/NN-slug.md`. The owner owns
+     the final voice and refines after; once a chapter is owner-edited, don't rewrite
+     it unprompted (CLAUDE.md, [ADR-0007](../../../docs/adr/0007-agent-drafts-chapter-theory.md)).
    - **Diagrams** — add one only when the concept is **spatial** (a shape in memory:
      slice header → backing array, struct fields, pointer aliasing) or **temporal**
      (a flow or state machine). ASCII line-art for memory/structural layout, Mermaid
