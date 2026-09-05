@@ -4,4 +4,4 @@ go 1.26.3
 use .
 
 // Each Milestone project is its own module — add it here when you build it, e.g.:
-// use ./content/part-1-foundation/gitm
+// use ./content/part-1-foundation/gorg

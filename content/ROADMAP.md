@@ -80,40 +80,44 @@ Part 4: Production ────── Capstone project, deployment, production p
 
 ### Chapters
 
-| #  | Chapter              | Key Topics                                                                                                   |
-| -- | -------------------- | ------------------------------------------------------------------------------------------------------------ |
-| 01 | History & Philosophy | Why Google created Go, the problems it solves, design principles, Go vs JS/TS mental model                   |
-| 02 | Setup & Tooling      | Installation, Go workspace, modules, go CLI, editor setup, gofmt/goimports/golangci-lint                     |
-| 03 | Types & Variables    | Basic types, zero values, type inference, constants, type conversions (no coercion!)                         |
-| 04 | Control Flow         | if/else, for (the only loop), switch (much more powerful than JS), defer                                     |
-| 05 | Functions            | Multiple returns, named returns, variadic, first-class functions, closures                                   |
-| 06 | Structs & Methods    | Structs as data containers, methods with receivers, pointer vs value receivers, composition over inheritance |
-| 07 | Interfaces           | Implicit satisfaction, empty interface, type assertions, type switches, io.Reader/Writer pattern             |
-| 08 | Pointers             | Why they exist, when to use them, pointer receivers, nil pointers, no pointer arithmetic                     |
-| 09 | Error Handling       | Errors as values, error wrapping (fmt.Errorf + %w), errors.Is/As, custom error types, sentinel errors        |
-| 10 | Collections          | Arrays, slices (capacity, append, copy, gotchas), maps, range, iterators (Go 1.23+)                          |
-| 11 | Packages & Modules   | Package organization, visibility (exported vs unexported), go.mod, dependency management, internal packages  |
-| 12 | Generics             | Type parameters, constraints, when to use vs when not to, comparison with TS generics                        |
-| 13 | Testing              | Built-in testing, table-driven tests, test coverage, benchmarks, testify basics                              |
+| #  | Chapter              | Key Topics                                                                                                                                    |
+| -- | -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| 01 | History & Philosophy | Why Google created Go, the problems it solves, design principles, Go vs JS/TS mental model                                                    |
+| 02 | Setup & Tooling      | Installation, Go workspace, modules, go CLI, editor setup, gofmt/goimports/golangci-lint                                                      |
+| 03 | Types & Variables    | Basic types, zero values, type inference, constants, type conversions (no coercion!)                                                          |
+| 04 | Control Flow         | if/else, for (the only loop), switch (much more powerful than JS), defer                                                                      |
+| 05 | Functions            | Multiple returns, named returns, variadic, first-class functions, closures                                                                    |
+| 06 | Structs & Methods    | Structs as data containers, methods with receivers, pointer vs value receivers, composition over inheritance                                  |
+| 07 | Interfaces           | Implicit satisfaction, empty interface, type assertions, type switches, io.Reader/Writer pattern                                              |
+| 08 | Pointers             | Why they exist, when to use them, pointer receivers, nil pointers, no pointer arithmetic                                                      |
+| 09 | Error Handling       | Errors as values, error wrapping (fmt.Errorf + %w), errors.Is/As, custom error types, sentinel errors                                         |
+| 10 | Collections          | Arrays, slices (capacity, append, copy, gotchas), maps, range, iterators (Go 1.23+)                                                           |
+| 11 | Packages & Modules   | Package organization, visibility (exported vs unexported), go.mod, dependency management, internal packages                                   |
+| 12 | Generics             | Type parameters, constraints, when to use vs when not to, comparison with TS generics                                                         |
+| 13 | Testing              | Built-in testing, table-driven tests, test coverage, benchmarks, testify basics                                                               |
+| 14 | Building CLIs & JSON | `flag` package, manual subcommand dispatch, `os.Args`, exit codes, `encoding/json` (Marshal/Unmarshal), struct tags, JSON round-trip to files |
 
-### Milestone Project: `gitm` — Git Account Manager CLI
+### Milestone Project: `gorg` — File Organizer CLI
 
-A CLI tool to manage multiple Git accounts (GitHub, GitLab) with SSH key management. You use this daily on your Arch Linux setup.
+A fast, safe file organizer built from the Go **standard library only**. Point it at a messy directory (Downloads, screenshots, a project dump) and it sorts files into category folders by configurable rules — safely, with preview and undo. You use this daily on your Arch Linux setup. Full spec: [`gorg/PLAN.md`](./part-1-foundation/gorg/PLAN.md).
 
 ```
-$ gitm list                → list saved accounts
-$ gitm add                 → interactive add (name, email, provider, scope)
-$ gitm use <name>          → set git config local/global
-$ gitm ssh-gen <name>      → generate SSH key for account  
-$ gitm ssh-list            → list SSH keys mapped to accounts
-$ gitm remove <name>       → delete with confirmation
+$ gorg <dir>               → organize a directory (default command)
+$ gorg <dir> --dry-run     → preview operations; change nothing
+$ gorg <dir> --recursive   → descend into subdirectories
+$ gorg <dir> --config <f>  → use a custom JSON rules file
+$ gorg stats <dir>         → report counts/sizes per category
+$ gorg undo                → revert the most recent run
+$ gorg rules               → print the effective ruleset
 
-Storage: ~/.config/gitm/accounts.json
+Storage: ~/.config/gorg/ (rules + undo journal, JSON)
 ```
 
-**Go concepts exercised:** structs, file I/O (JSON), CLI args (flag or cobra), exec.Command (git config, ssh-keygen), error handling, packages, testing.
+**Go concepts exercised:** structs & methods, interfaces (`FileSystem`, `Classifier`, `ConflictStrategy`), pointers, error handling (wrapping, sentinel errors, `errors.Join`), collections, packages, generics (sparingly), testing (fake filesystem), CLI args (`flag`) + `encoding/json`.
 
-**Bonus (post-Part 1):** Add TUI with bubbletea/lipgloss.
+**Structure:** built at the end of Part 1 as its own Go module — chapters 03–14 keep their own `examples/`/`exercises/`; the "grows over time" feel lives in `gorg`'s own Phase 0→5 git history.
+
+**Bonus (post-Part 1):** cobra/viper, TOML config, `fsnotify` watch daemon (Part 3 concurrency), bubbletea/lipgloss TUI.
 
 ### Verifiable Checkpoints
 
@@ -124,8 +128,8 @@ Week 2:  Can explain Go's type system, zero values, and why there's no "undefine
 Week 4:  Can model a domain with structs + interfaces, handle all errors idiomatically
          → Verify: code review your own code — would a Go dev approve?
 
-Week 6:  gitm CLI works, has tests, you use it daily
-         → Verify: `go test ./...` passes, you actually switched git accounts with it
+Week 6:  gorg CLI works — organizes ~/Downloads, --dry-run and undo work, has tests
+         → Verify: `go test ./...` passes, you actually tidied a real folder with it
 ```
 
 ---
@@ -138,17 +142,17 @@ Week 6:  gitm CLI works, has tests, you use it daily
 
 | #  | Chapter                     | Key Topics                                                                         |
 | -- | --------------------------- | ---------------------------------------------------------------------------------- |
-| 14 | HTTP Fundamentals in Go     | net/http, HandlerFunc, ServeMux (new Go 1.22+ routing), request/response lifecycle |
-| 15 | JSON & Serialization        | encoding/json, struct tags, custom marshalers, streaming JSON, validation          |
-| 16 | Middleware Pattern          | Handler chaining, logging, auth, CORS, recovery, request ID — all from scratch     |
-| 17 | Project Structure           | Flat vs layered, domain-driven layout, internal/, cmd/, when to split packages     |
-| 18 | Database Fundamentals       | database/sql, connection pooling, prepared statements, transactions, migrations    |
-| 19 | Repository Pattern          | Clean data access, interface-based repos, testability, sqlc introduction           |
-| 20 | Configuration & Environment | env vars, config files, 12-factor app, Viper vs stdlib approaches                  |
-| 21 | Logging & Observability     | slog (structured logging, Go 1.21+), log levels, request tracing                   |
-| 22 | Intro to Frameworks         | Echo vs Chi vs Gin vs stdlib — tradeoffs, when to use which, hands-on with Echo    |
-| 23 | Authentication Basics       | JWT basics, middleware auth, bcrypt, session vs token for Go services              |
-| 24 | API Design                  | RESTful conventions, pagination, filtering, error responses, API versioning        |
+| 15 | HTTP Fundamentals in Go     | net/http, HandlerFunc, ServeMux (new Go 1.22+ routing), request/response lifecycle |
+| 16 | JSON & Serialization        | encoding/json, struct tags, custom marshalers, streaming JSON, validation          |
+| 17 | Middleware Pattern          | Handler chaining, logging, auth, CORS, recovery, request ID — all from scratch     |
+| 18 | Project Structure           | Flat vs layered, domain-driven layout, internal/, cmd/, when to split packages     |
+| 19 | Database Fundamentals       | database/sql, connection pooling, prepared statements, transactions, migrations    |
+| 20 | Repository Pattern          | Clean data access, interface-based repos, testability, sqlc introduction           |
+| 21 | Configuration & Environment | env vars, config files, 12-factor app, Viper vs stdlib approaches                  |
+| 22 | Logging & Observability     | slog (structured logging, Go 1.21+), log levels, request tracing                   |
+| 23 | Intro to Frameworks         | Echo vs Chi vs Gin vs stdlib — tradeoffs, when to use which, hands-on with Echo    |
+| 24 | Authentication Basics       | JWT basics, middleware auth, bcrypt, session vs token for Go services              |
+| 25 | API Design                  | RESTful conventions, pagination, filtering, error responses, API versioning        |
 
 ### Milestone Project: `dropshare` — File/Content Sharing Service
 
@@ -194,17 +198,17 @@ Week 12: dropshare service works end-to-end, with tests and proper error handlin
 
 | #  | Chapter                      | Key Topics                                                                                               |
 | -- | ---------------------------- | -------------------------------------------------------------------------------------------------------- |
-| 25 | Goroutines Deep Dive         | Goroutine lifecycle, stack growth, scheduling (GMP model), goroutine vs OS thread vs JS event loop       |
-| 26 | Channels                     | Unbuffered vs buffered, directional channels, channel patterns, when channels vs mutexes                 |
-| 27 | Select & Multiplexing        | select statement, timeouts, cancellation, fan-in/fan-out                                                 |
-| 28 | sync Package                 | Mutex, RWMutex, WaitGroup, Once, Pool, atomic operations                                                 |
-| 29 | Context                      | context.Context everywhere, cancellation propagation, timeouts, values, why Go passes context explicitly |
-| 30 | Concurrency Patterns         | Worker pools, pipelines, rate limiters, semaphores, errgroup                                             |
-| 31 | Networking Fundamentals      | net package, TCP/UDP, connection handling, timeouts, keep-alive                                          |
-| 32 | WebSocket                    | gorilla/websocket or nhooyr/websocket, upgrade handshake, concurrent read/write, connection management   |
-| 33 | Reverse Proxy                | httputil.ReverseProxy, load balancing algorithms, health checks, header manipulation                     |
-| 34 | Performance & Profiling      | pprof, benchmarks, escape analysis, memory allocation, race detector                                     |
-| 35 | Code Generation & Reflection | go generate, reflect package (when/why), build tags                                                      |
+| 26 | Goroutines Deep Dive         | Goroutine lifecycle, stack growth, scheduling (GMP model), goroutine vs OS thread vs JS event loop       |
+| 27 | Channels                     | Unbuffered vs buffered, directional channels, channel patterns, when channels vs mutexes                 |
+| 28 | Select & Multiplexing        | select statement, timeouts, cancellation, fan-in/fan-out                                                 |
+| 29 | sync Package                 | Mutex, RWMutex, WaitGroup, Once, Pool, atomic operations                                                 |
+| 30 | Context                      | context.Context everywhere, cancellation propagation, timeouts, values, why Go passes context explicitly |
+| 31 | Concurrency Patterns         | Worker pools, pipelines, rate limiters, semaphores, errgroup                                             |
+| 32 | Networking Fundamentals      | net package, TCP/UDP, connection handling, timeouts, keep-alive                                          |
+| 33 | WebSocket                    | gorilla/websocket or nhooyr/websocket, upgrade handshake, concurrent read/write, connection management   |
+| 34 | Reverse Proxy                | httputil.ReverseProxy, load balancing algorithms, health checks, header manipulation                     |
+| 35 | Performance & Profiling      | pprof, benchmarks, escape analysis, memory allocation, race detector                                     |
+| 36 | Code Generation & Reflection | go generate, reflect package (when/why), build tags                                                      |
 
 ### Milestone Projects (pick order by interest)
 
@@ -265,13 +269,13 @@ Week 20: gochat handles 100+ concurrent connections, messages broadcast correctl
 
 | #  | Chapter                 | Key Topics                                                                                         |
 | -- | ----------------------- | -------------------------------------------------------------------------------------------------- |
-| 36 | Production Architecture | Service design, clean architecture in Go, dependency injection without frameworks                  |
-| 37 | Advanced Middleware     | Rate limiting (token bucket, sliding window), circuit breaker, request validation, compression     |
-| 38 | gRPC & Protocol Buffers | Why gRPC, protobuf, code generation, gRPC vs REST tradeoffs, gRPC-Gateway                          |
-| 39 | Docker & Deployment     | Multi-stage Docker builds (Go binary = tiny image), health checks, graceful shutdown, 12-factor    |
-| 40 | CI/CD & Release         | GitHub Actions for Go, goreleaser, linting in CI, semantic versioning                              |
-| 41 | Security Hardening      | Input validation, SQL injection prevention, rate limiting, CORS, security headers, OWASP for Go    |
-| 42 | Monitoring & Metrics    | Prometheus metrics, health endpoints, structured logging in production, distributed tracing basics |
+| 37 | Production Architecture | Service design, clean architecture in Go, dependency injection without frameworks                  |
+| 38 | Advanced Middleware     | Rate limiting (token bucket, sliding window), circuit breaker, request validation, compression     |
+| 39 | gRPC & Protocol Buffers | Why gRPC, protobuf, code generation, gRPC vs REST tradeoffs, gRPC-Gateway                          |
+| 40 | Docker & Deployment     | Multi-stage Docker builds (Go binary = tiny image), health checks, graceful shutdown, 12-factor    |
+| 41 | CI/CD & Release         | GitHub Actions for Go, goreleaser, linting in CI, semantic versioning                              |
+| 42 | Security Hardening      | Input validation, SQL injection prevention, rate limiting, CORS, security headers, OWASP for Go    |
+| 43 | Monitoring & Metrics    | Prometheus metrics, health endpoints, structured logging in production, distributed tracing basics |
 
 ### Capstone Project: `gogate` — API Gateway
 
@@ -407,8 +411,8 @@ justgo/
 │       │   ├── QUESTIONS.md
 │       │   ├── examples/           ← runnable demos (go run .)
 │       │   └── exercises/          ← test-driven exercises (go test)
-│       └── …                       ← 04–13 as you reach them
-│       └── gitm/                   ← Milestone project (own go.mod)
+│       └── …                       ← 04–14 as you reach them
+│       └── gorg/                   ← Milestone project (own go.mod)
 └── (parts 2–4 scaffolded when you get there)
 ```
 
@@ -427,11 +431,11 @@ Chapters with no code (e.g. 01 History) skip `examples/` and `exercises/`.
 
 | Part       | Chapters                     | Est. Time                | Pace                                 |
 | ---------- | ---------------------------- | ------------------------ | ------------------------------------ |
-| Foundation | 01–13 + gitm project         | 6 weeks                  | ~2-3 chapters/week                   |
-| Web & APIs | 14–24 + dropshare project    | 6 weeks                  | ~2 chapters/week                     |
-| Advanced   | 25–35 + goproxy + gochat     | 8 weeks                  | ~1-2 chapters/week (harder material) |
-| Production | 36–42 + gogate capstone      | 6 weeks                  | ~1 chapter/week + heavy project work |
-| **Total**  | **42 chapters + 4 projects** | **~26 weeks (6 months)** | **1-3h/day**                         |
+| Foundation | 01–14 + gorg project         | 6 weeks                  | ~2-3 chapters/week                   |
+| Web & APIs | 15–25 + dropshare project    | 6 weeks                  | ~2 chapters/week                     |
+| Advanced   | 26–36 + goproxy + gochat     | 8 weeks                  | ~1-2 chapters/week (harder material) |
+| Production | 37–43 + gogate capstone      | 6 weeks                  | ~1 chapter/week + heavy project work |
+| **Total**  | **43 chapters + 4 projects** | **~26 weeks (6 months)** | **1-3h/day**                         |
 
 > Chapters are not equal length. Part 1 chapters are shorter (building blocks). Part 3-4 chapters are denser. Adjust pace accordingly — deep understanding of 1 concept beats skimming through 5.
 

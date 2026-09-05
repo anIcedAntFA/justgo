@@ -17,7 +17,7 @@ one concept, one folder.
 _Avoid_: lesson, unit, module.
 
 **Milestone project** (short: _project_):
-A runnable, genuinely usable program built at the end of a Part — `gitm`,
+A runnable, genuinely usable program built at the end of a Part — `gorg`,
 `dropshare`, `goproxy`, `gochat`, `gogate`. Each is its own **Go module**.
 _Avoid_: app, exercise.
 
@@ -59,11 +59,11 @@ say Go module.
 
 ## Example dialogue
 
-> **Learner:** Which module is the `use` command in?
-> **Mentor:** Careful — do you mean which Go module, or which Chapter? The `use`
-> command is in the **`gitm` Milestone project**, which is its own Go module under
+> **Learner:** Which module is the `undo` command in?
+> **Mentor:** Careful — do you mean which Go module, or which Chapter? The `undo`
+> command is in the **`gorg` Milestone project**, which is its own Go module under
 > `content/part-1-foundation/`. The Chapter that _teaches_ the concepts it uses is
-> Chapter 06, Structs & Methods.
+> Chapter 09, Error Handling (and Chapter 14 for the JSON journal it reads).
 > **Learner:** Got it. And the little slice-append thing I did earlier?
 > **Mentor:** That's an **Exercise** inside Chapter 10, not a project — it stays in
 > the root Go module with the other Chapter code.

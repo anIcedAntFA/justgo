@@ -1025,18 +1025,18 @@ Then explore the runnable demos in [`examples/`](./examples/): each folder is a
 
 ---
 
-## 🧭 Part 1 Complete
+## 🧭 Almost there
 
-Congratulations — you've finished the **Foundation** chapters. You now know Go's syntax,
-type system, error handling, collections, packages, generics, and testing. You can
-**think in Go**.
+You now know Go's syntax, type system, error handling, collections, packages, generics,
+and testing. You can **think in Go**.
 
-**Next:** the **`gitm` milestone project** — build a real Git account manager CLI that
-applies everything from Part 1 (its own Go module, added under this Part when you reach
-it). After that, Part 2 opens with HTTP and web services.
+**Next:** Chapter 14, **Building CLIs & JSON** — the `flag` package and `encoding/json`,
+the last two skills the milestone needs. After that you build the **`gorg` milestone
+project** — a safe file-organizer CLI that applies everything from Part 1 (its own Go
+module, added under this Part when you reach it).
 
-| Direction    | Link                                                        |
-| ------------ | ----------------------------------------------------------- |
-| **Previous** | [← Chapter 12: Generics](../12-generics/README.md)          |
-| **Next**     | `gitm` — Git Account Manager CLI _(milestone, not started)_ |
-| **Overview** | [Part 1 — Foundation](../README.md)                         |
+| Direction    | Link                                                                         |
+| ------------ | ---------------------------------------------------------------------------- |
+| **Previous** | [← Chapter 12: Generics](../12-generics/README.md)                           |
+| **Next**     | [Chapter 14: Building CLIs & JSON →](../14-building-clis-and-json/README.md) |
+| **Overview** | [Part 1 — Foundation](../README.md)                                          |

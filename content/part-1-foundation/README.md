@@ -2,8 +2,8 @@
 
 > **Goal:** Think in Go. Write idiomatic Go. Understand _why_ Go is the way it is.
 
-Language mechanics and the mental-model shift from JS/TS. Ends with the **`gitm`**
-Milestone project — a Git account manager CLI you'll actually use.
+Language mechanics and the mental-model shift from JS/TS. Ends with the **`gorg`**
+Milestone project — a safe file-organizer CLI you'll actually use.
 
 See the full plan in [`../ROADMAP.md`](../ROADMAP.md).
 
@@ -24,8 +24,10 @@ See the full plan in [`../ROADMAP.md`](../ROADMAP.md).
 | 11 | [Packages & Modules](./11-packages-and-modules/README.md)     | ✅ drafted                 |
 | 12 | [Generics](./12-generics/README.md)                           | ✅ drafted                 |
 | 13 | [Testing](./13-testing/README.md)                             | ✅ drafted                 |
+| 14 | [Building CLIs & JSON](./14-building-clis-and-json/README.md) | 🚧 scaffolded              |
 
 ## Milestone project
 
-**`gitm`** — Git Account Manager CLI (its own Go module, added under this folder
-when you reach it). See the roadmap for the command surface and concepts it exercises.
+**`gorg`** — File Organizer CLI (its own Go module, added under this folder when you
+reach it). See [`gorg/PLAN.md`](./gorg/PLAN.md) for the full spec, and the
+[roadmap](../ROADMAP.md) for the command surface and concepts it exercises.

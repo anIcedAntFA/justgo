@@ -17,7 +17,7 @@ exercises, and recall questions, all in one repo.
 ```
 content/                  the learning material (this is the product)
   ROADMAP.md              single source of truth for the plan
-  part-1-foundation/      Part → Chapter folders + the gitm project
+  part-1-foundation/      Part → Chapter folders + the gorg project
 docs/                     ADRs + tooling how-to (how the repo runs)
 CONTEXT.md                glossary
 ```
