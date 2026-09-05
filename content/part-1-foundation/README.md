@@ -24,7 +24,7 @@ See the full plan in [`../ROADMAP.md`](../ROADMAP.md).
 | 11 | [Packages & Modules](./11-packages-and-modules/README.md)     | ✅ drafted                 |
 | 12 | [Generics](./12-generics/README.md)                           | ✅ drafted                 |
 | 13 | [Testing](./13-testing/README.md)                             | ✅ drafted                 |
-| 14 | [Building CLIs & JSON](./14-building-clis-and-json/README.md) | 🚧 scaffolded              |
+| 14 | [Building CLIs & JSON](./14-building-clis-and-json/README.md) | ✅ drafted                 |
 
 ## Milestone project
 
