@@ -314,6 +314,122 @@ fmt.Println(strconv.Itoa(65))  // "65" — converts int to its string representa
 
 ---
 
+## Strings, Bytes & Runes (Deep Dive)
+
+The intro above said strings are "UTF-8 encoded bytes." That one sentence hides the model that trips up every JS developer. Text in Go has **three views**, and knowing which one you're holding is the whole game.
+
+### The three views of text
+
+```go
+s := "café"            // a string   — read-only UTF-8 bytes
+b := []byte(s)         // a []byte   — the raw bytes, mutable
+r := []rune(s)         // a []rune   — one int32 per Unicode code point
+
+fmt.Println(len(s))    // 5  — BYTES  (é is 2 bytes in UTF-8)
+fmt.Println(len(b))    // 5  — same bytes
+fmt.Println(len(r))    // 4  — CODE POINTS (c, a, f, é)
+```
+
+- **`string`** — immutable, the default for text you pass around and compare.
+- **`[]byte`** — a mutable copy of the bytes; what you use for file/network I/O, buffers, and anything you need to edit in place. Converting `string ↔ []byte` **copies** (strings are immutable, so it has to).
+- **`[]rune`** — a slice of code points; use it only when you genuinely need random access to the _N-th character_ (reversing text, counting characters, editing by character).
+
+In JS a string is a sequence of UTF-16 code units — `"café".length` is `4`, and you rarely think about bytes. In Go, `len(string)` is always **bytes**, and indexing a string returns a **byte**, not a character:
+
+```go
+s := "café"
+fmt.Printf("%T %v\n", s[0], s[0])   // uint8 99   — a byte ('c'), not a string
+// s[3] is the FIRST byte of é (0xC3), not the character é — indexing can split a rune
+```
+
+### Iterating: index vs `range`
+
+This is the practical consequence of the byte/rune split:
+
+```go
+s := "Go🚀"
+
+// range decodes UTF-8: i is the BYTE index, r is the rune (code point)
+for i, r := range s {
+    fmt.Printf("%d: %c (U+%04X)\n", i, r, r)
+}
+// 0: G (U+0047)
+// 1: o (U+006F)
+// 2: 🚀 (U+1F680)   ← note the index jumps 2 → 6, the rocket is 4 bytes
+
+// A classic C-style loop walks BYTES, and will mangle multi-byte characters:
+for i := 0; i < len(s); i++ {
+    fmt.Printf("%d ", s[i])   // prints 4 byte values for 🚀
+}
+```
+
+Rule of thumb: **`range` over a string for characters, index into it for bytes.** Reach for `[]rune(s)` only when you need `r[i]` random access.
+
+> Runnable demo: [`examples/text-views/`](./examples/text-views/) — the three views, `range` decoding, and `strings.Builder` in one program (`go run .`).
+
+### The `strings` package — your daily driver
+
+You rarely manipulate bytes by hand. The `strings` package has the batteries. These are the ones you'll use constantly (and that the `gorg` project leans on for extension matching):
+
+```go
+import "strings"
+
+strings.ToLower(".JPG")                 // ".jpg"      — normalize before comparing
+strings.HasSuffix("photo.png", ".png")  // true
+strings.TrimPrefix(".tar.gz", ".")      // "tar.gz"
+strings.Split("a,b,c", ",")             // ["a" "b" "c"]
+strings.Join([]string{"a", "b"}, "/")   // "a/b"
+strings.Fields("  hello   world ")      // ["hello" "world"]  — split on any whitespace
+strings.Contains("readme.md", ".md")    // true
+strings.ReplaceAll("a.b.c", ".", "-")   // "a-b-c"
+```
+
+Coming from JS these map onto `toLowerCase`, `endsWith`, `split`, `join`, `includes`, `replaceAll` — same ideas, standard-library-first, no prototype methods on the string itself.
+
+### Building strings efficiently: `strings.Builder`
+
+Strings are immutable, so `s += x` in a loop allocates a **brand-new string every iteration** — O(n²) work and a lot of garbage. For anything more than a couple of concatenations, use `strings.Builder`:
+
+```go
+// ❌ Quadratic: each += copies the whole accumulated string
+var out string
+for _, part := range parts {
+    out += part + "\n"
+}
+
+// ✅ Linear: Builder writes into a growing buffer, one final string at the end
+var b strings.Builder
+for _, part := range parts {
+    b.WriteString(part)
+    b.WriteByte('\n')
+}
+out := b.String()
+```
+
+`strings.Builder` has a **useful zero value** (recall the proverb above) — `var b strings.Builder` is ready to write, no constructor. It's the idiomatic way to assemble CLI output, reports, and any text built piece by piece. (`bytes.Buffer` is its `[]byte` sibling for the same job when you want bytes.)
+
+### `strconv` — text ↔ numbers, done safely
+
+You met `strconv` under conversions; here's the working set. Unlike JS's `parseInt`/`Number` which silently yield `NaN`, every `strconv` parse returns an explicit `error`:
+
+```go
+import "strconv"
+
+strconv.Itoa(42)                       // "42"           int → string
+strconv.Atoi("42")                     // 42, nil        string → int (err on bad input)
+strconv.FormatInt(255, 16)             // "ff"           int → base-16 string
+strconv.ParseInt("ff", 16, 64)         // 255, nil       parse in a given base
+strconv.FormatFloat(3.14159, 'f', 2, 64) // "3.14"       float → fixed-decimal string
+strconv.ParseBool("true")              // true, nil      "1"/"t"/"true" → bool
+strconv.Quote("hi\n")                  // "\"hi\\n\""    add Go-syntax quotes/escapes
+```
+
+For a _human-readable file size_ (like `gorg stats` prints), you combine `strconv.FormatFloat` with a unit — that's [Exercise 4](#exercise-4-human-readable-file-size).
+
+> **`strconv` vs `fmt`:** `strconv.Itoa(n)` and `fmt.Sprintf("%d", n)` both make `"42"`. Prefer `strconv` in hot paths and simple conversions — it's faster and allocation-light because it doesn't parse a format string or use reflection. Reach for `fmt.Sprintf` when you're interpolating several values into one message.
+
+---
+
 ## Constants
 
 ```go
@@ -616,6 +732,32 @@ Write a program that takes the string `"Hello, 世界! 🌍"` and prints:
 
 Expected to see that the emoji `🌍` takes 4 bytes in UTF-8.
 
+### Exercise 4: Human-Readable File Size
+
+Implement `HumanSize(n int64) string` that formats a byte count with base-1024 units (`B`, `KB`, `MB`, `GB`, `TB`). Whole bytes print as an integer; larger units get one decimal place. This is the formatting `gorg stats` uses.
+
+```go
+HumanSize(512)     // "512 B"
+HumanSize(1024)    // "1.0 KB"
+HumanSize(1536)    // "1.5 KB"
+HumanSize(1048576) // "1.0 MB"
+```
+
+Stub and tests live in [`exercises/humansize.go`](./exercises/humansize.go). Use `strconv.FormatFloat` for the decimal units. Delete the `t.Skip` when you're ready.
+
+### Exercise 5: Normalize a File Extension
+
+Implement `NormalizeExt(name string) string` returning the file's extension lower-cased and with its leading dot — or `""` when there is none. Only the final extension counts, and a leading-dot dotfile (`.gitignore`) has _no_ extension.
+
+```go
+NormalizeExt("IMG_1234.JPG")   // ".jpg"
+NormalizeExt("archive.tar.gz") // ".gz"
+NormalizeExt("README")         // ""
+NormalizeExt(".gitignore")     // ""
+```
+
+Stub and tests live in [`exercises/normalizeext.go`](./exercises/normalizeext.go). Pure `strings` package — no `filepath` yet (that's Chapter 14).
+
 ---
 
 ## Key Takeaways
@@ -631,6 +773,8 @@ Expected to see that the emoji `🌍` takes 4 bytes in UTF-8.
 5. **`iota` replaces enums.** Combined with defined types, it's a clean pattern for constants with type safety.
 
 6. **Unused variables are compile errors.** Go won't let you leave dead code around. Use `_` to deliberately ignore values.
+
+7. **Text has three views: `string`, `[]byte`, `[]rune`.** `len` and indexing work in **bytes**; `range` decodes **runes**. Use the `strings` package for manipulation, `strings.Builder` to build text in a loop (never `+=`), and `strconv` for safe text↔number conversion.
 
 ---
 
