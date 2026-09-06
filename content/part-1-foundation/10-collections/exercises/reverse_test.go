@@ -6,7 +6,7 @@ import (
 )
 
 func TestReverse(t *testing.T) {
-	t.Skip("Chapter 10 exercise: implement Reverse, then delete this Skip")
+	// t.Skip("Chapter 10 exercise: implement Reverse, then delete this Skip")
 
 	cases := []struct {
 		name string
